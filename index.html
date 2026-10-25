@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECOSCOPE - Company Review & Skill Transparency System</title>
+    <meta name="description" content="Integrated Web Platform combining Programming Languages (PL), Object-Oriented Programming (PSOOP), Computer Graphics (CG OpenGL/Canvas), and Computer Organization & Architecture (COA 64-bit NASM).">
+    
+    <!-- Google Fonts: Outfit (UI Display) & JetBrains Mono (Assembly & Register HUD) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Vanilla CSS Design System -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="theme-dark">
+    <!-- Ambient Background Lighting -->
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+    <div class="ambient-grid"></div>
+
+    <!-- ================================================================= -->
+    <!-- SCREEN 0: WELCOME / LANDING SCREEN                                -->
+    <!-- ================================================================= -->
+    <section id="screen-welcome" class="screen active">
+        <div class="welcome-container">
+            <!-- Animated Radar Logo on HTML5 Canvas -->
+            <div class="welcome-logo-wrapper">
+                <canvas id="welcome-logo-canvas" width="360" height="360"></canvas>
+            </div>
+
+            <div class="welcome-header">
+                <h1 class="welcome-title">Welcome to <span class="gradient-text">ECOSCOPE</span></h1>
+                <p class="welcome-tagline">The leading platform for verified company reviews and radical skill transparency.</p>
+                <p class="welcome-subtag">Elevate your career with insights you can trust & interactive computational visualization.</p>
+            </div>
+
+            <div class="welcome-actions">
+                <button id="btn-welcome-get-started" class="btn btn-primary btn-glow btn-lg">
+                    <span>GET STARTED</span>
+                    <svg class="icon-arrow" viewBox="0 0 24 24" width="20" height="20">
+                        <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Bottom Live Statistics Cards -->
+            <div class="welcome-stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon-badge cyan">
+                        <span class="pulse-dot"></span>
+                        <span class="badge-label">VERIFIED REVIEWS</span>
+                    </div>
+                    <h3 id="stat-welcome-reviews" class="stat-number">3 Feedback</h3>
+                    <p class="stat-desc">Authentic Peer Feedback</p>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon-badge amber">
+                        <span class="pulse-dot amber"></span>
+                        <span class="badge-label">PARTNER COMPANIES</span>
+                    </div>
+                    <h3 id="stat-welcome-companies" class="stat-number">6 Active</h3>
+                    <p class="stat-desc">Partner Organizations</p>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon-badge emerald">
+                        <span class="pulse-dot emerald"></span>
+                        <span class="badge-label">SKILL TRANSPARENCY</span>
+                    </div>
+                    <h3 id="stat-welcome-transparency" class="stat-number">90% Index</h3>
+                    <p class="stat-desc">Radical Role Clarity</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- SCREEN 1: LOGIN / AUTHENTICATION SCREEN                           -->
+    <!-- ================================================================= -->
+    <section id="screen-login" class="screen">
+        <div class="login-wrapper">
+            <!-- Left Branding Glass Card with Animated Logo -->
+            <div class="login-branding-panel glass-card">
+                <div class="branding-logo-box">
+                    <canvas id="login-logo-canvas" width="240" height="240"></canvas>
+                </div>
+                <h2 class="branding-title gradient-text">ECOSCOPE</h2>
+                <h4 class="branding-subtitle">Verified Reviews &amp; Skill Transparency</h4>
+                <p class="branding-desc">Radical skill clarity connecting students, tech employers &amp; academia through computational rigor.</p>
+                
+                <div class="branding-divider"></div>
+
+                <!-- Quick Demo Login Helpers -->
+                <div class="demo-creds-card">
+                    <span class="creds-tag">DEMO LOGIN CREDENTIALS</span>
+                    <div class="cred-row" onclick="quickFillCreds('student', '1234', 'STUDENT')">
+                        <span class="role-pill student">Student</span>
+                        <code>student / 1234</code>
+                    </div>
+                    <div class="cred-row" onclick="quickFillCreds('employer', '1234', 'EMPLOYER')">
+                        <span class="role-pill employer">Employer</span>
+                        <code>employer / 1234</code>
+                    </div>
+                    <div class="cred-row" onclick="quickFillCreds('admin', 'admin123', 'ADMIN')">
+                        <span class="role-pill admin">Admin</span>
+                        <code>admin / admin123</code>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Credentials Form -->
+            <div class="login-form-panel glass-card">
+                <div class="form-header">
+                    <h2>AUTHENTICATION</h2>
+                    <p>Select your polymorphic role and enter credentials</p>
+                </div>
+
+                <!-- Role Selection Tabs -->
+                <div class="role-tab-group">
+                    <button type="button" class="role-tab active" data-role="STUDENT">STUDENT</button>
+                    <button type="button" class="role-tab" data-role="EMPLOYER">EMPLOYER</button>
+                    <button type="button" class="role-tab" data-role="ADMIN">ADMIN</button>
+                </div>
+
+                <form id="form-login" onsubmit="handleLoginSubmit(event)">
+                    <div class="form-group">
+                        <label for="login-username">USERNAME</label>
+                        <div class="input-glow-wrapper">
+                            <input type="text" id="login-username" value="student" required autocomplete="username" placeholder="Enter username">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="login-password">PASSWORD</label>
+                        <div class="input-glow-wrapper">
+                            <input type="password" id="login-password" value="1234" required autocomplete="current-password" placeholder="Enter password">
+                            <button type="button" id="btn-toggle-password" class="btn-icon" aria-label="Toggle password visibility">👁</button>
+                        </div>
+                    </div>
+
+                    <div id="login-error-msg" class="form-error hidden"></div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary btn-glow w-100">
+                            <span>SIGN IN TO PORTAL</span>
+                            <span class="arrow-sym">→</span>
+                        </button>
+                    </div>
+
+                    <div class="form-footer-links">
+                        <button type="button" class="btn-link" onclick="switchScreen('screen-welcome')">← Back to Welcome</button>
+                        <button type="button" class="btn-link" onclick="openRegisterModal()">Create New Account</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- SCREEN 2: MAIN DASHBOARD & APPLICATION PORTAL                     -->
+    <!-- ================================================================= -->
+    <section id="screen-main" class="screen">
+        <div class="main-layout">
+            
+            <!-- LEFT NAVIGATION SIDEBAR -->
+            <aside class="sidebar">
+                <div class="sidebar-brand" onclick="switchView('view-dashboard')">
+                    <div class="brand-avatar">E</div>
+                    <div class="brand-info">
+                        <span class="brand-name">ECOSCOPE</span>
+                        <span id="sidebar-role-badge" class="brand-role">STUDENT PORTAL</span>
+                    </div>
+                </div>
+
+                <nav class="sidebar-nav">
+                    <button class="nav-item active" data-target="view-dashboard">
+                        <span class="nav-num">01</span>
+                        <span class="nav-text">Dashboard</span>
+                    </button>
+                    <button class="nav-item" data-target="view-companies">
+                        <span class="nav-num">02</span>
+                        <span class="nav-text">Companies</span>
+                    </button>
+                    <button class="nav-item" data-target="view-reviews">
+                        <span class="nav-num">03</span>
+                        <span class="nav-text">Reviews</span>
+                    </button>
+                    <button class="nav-item" data-target="view-skills">
+                        <span class="nav-num">04</span>
+                        <span class="nav-text">Skill Transparency</span>
+                    </button>
+                    <button class="nav-item" data-target="view-salary">
+                        <span class="nav-num">05</span>
+                        <span class="nav-text">Salary Insights</span>
+                    </button>
+                    <button class="nav-item" data-target="view-compare">
+                        <span class="nav-num">06</span>
+                        <span class="nav-text">Compare Companies</span>
+                    </button>
+                    <button class="nav-item" data-target="view-analytics">
+                        <span class="nav-num">07</span>
+                        <span class="nav-text">Analytics &amp; 3D</span>
+                    </button>
+                    <button class="nav-item" data-target="view-algorithm-lab">
+                        <span class="nav-num">08</span>
+                        <span class="nav-text">Algorithm Lab</span>
+                    </button>
+                    <button class="nav-item" data-target="view-profile">
+                        <span class="nav-num">09</span>
+                        <span class="nav-text">Profile &amp; History</span>
+                    </button>
+                </nav>
+
+                <div class="sidebar-footer">
+                    <button id="btn-logout" class="btn btn-danger-ghost w-100" onclick="handleLogout()">
+                        <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" fill="none" stroke-width="2">
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/>
+                        </svg>
+                        <span>LOGOUT</span>
+                    </button>
+                </div>
+            </aside>
+
+            <!-- MAIN CONTENT AREA -->
+            <main class="content-viewport">
+                <!-- TOP APPLICATION BAR -->
+                <header class="app-topbar">
+                    <div class="header-titles">
+                        <h2 id="view-title">Overview Dashboard</h2>
+                        <p id="view-subtitle">Platform-wide company review, skill transparency, and salary intelligence</p>
+                    </div>
+
+                    <div class="topbar-right">
+                        <div class="user-chip">
+                            <div class="user-chip-avatar"></div>
+                            <div class="user-chip-text">
+                                <span class="label">User:</span>
+                                <span id="topbar-username" class="val">student</span>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+
+                <!-- STATUS MESSAGE BANNER -->
+                <div id="status-bar" class="status-bar">
+                    <span class="status-indicator"></span>
+                    <span id="status-text">Welcome to ECOSCOPE - Platform Ready.</span>
+                </div>
+
+                <!-- ===================================================== -->
+                <!-- VIEW 01: DASHBOARD                                    -->
+                <!-- ===================================================== -->
+                <div id="view-dashboard" class="view-panel active">
+                    <!-- Top Stat Counter Cards -->
+                    <div class="dashboard-stats-grid">
+                        <div class="metric-card cyan">
+                            <div class="metric-head">
+                                <span class="metric-label">TOTAL COMPANIES</span>
+                                <span class="metric-tag">PL ARRAY</span>
+                            </div>
+                            <div class="metric-val" id="dash-total-comps">6</div>
+                            <div class="metric-sub">Active Corporate Profiles</div>
+                        </div>
+
+                        <div class="metric-card amber">
+                            <div class="metric-head">
+                                <span class="metric-label">VERIFIED REVIEWS</span>
+                                <span class="metric-tag">QUEUE/STACK</span>
+                            </div>
+                            <div class="metric-val" id="dash-total-reviews">3</div>
+                            <div class="metric-sub">Moderated Peer Insights</div>
+                        </div>
+
+                        <div class="metric-card emerald">
+                            <div class="metric-head">
+                                <span class="metric-label">SKILL TRANSPARENCY</span>
+                                <span class="metric-tag">BENCHMARK</span>
+                            </div>
+                            <div class="metric-val" id="dash-avg-transparency">90%</div>
+                            <div class="metric-sub">Role Requirement Clarity</div>
+                        </div>
+
+                        <div class="metric-card purple">
+                            <div class="metric-head">
+                                <span class="metric-label">64-BIT HARDWARE ALU</span>
+                                <span class="metric-tag">NASM WIN64</span>
+                            </div>
+                            <div class="metric-val" id="dash-cpu-status">SYNCED</div>
+                            <div class="metric-sub">Direct Register Pipeline</div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Navigation Action Cards -->
+                    <div class="dashboard-sections-grid">
+                        <!-- Left: Top Ranked Companies Preview -->
+                        <div class="glass-panel col-span-2">
+                            <div class="panel-header">
+                                <h3>Top Ranked Organizations</h3>
+                                <button class="btn btn-sm btn-ghost" onclick="switchView('view-companies')">View All →</button>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="eco-table">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Company</th>
+                                            <th>Industry</th>
+                                            <th>Rating</th>
+                                            <th>Transparency</th>
+                                            <th>Roles</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="dash-top-comps-tbody">
+                                        <!-- Injected via JavaScript -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Right: Recent Activity Audit Stream -->
+                        <div class="glass-panel">
+                            <div class="panel-header">
+                                <h3>Recent System Activities</h3>
+                                <span class="badge-emerald">Live Audit</span>
+                            </div>
+                            <div id="dash-activity-stream" class="activity-feed">
+                                <!-- Injected via JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===================================================== -->
+                <!-- VIEW 02: COMPANIES                                    -->
+                <!-- ===================================================== -->
+                <div id="view-companies" class="view-panel">
+                    <div class="toolbar-bar">
+                        <div class="search-box">
+                            <input type="text" id="comp-search-input" placeholder="Search by company name, industry, or skill..." oninput="handleCompanySearch(this.value)">
+                        </div>
+
+                        <div class="toolbar-actions">
+                            <div class="filter-group">
+                                <label>Industry:</label>
+                                <select id="comp-industry-filter" onchange="applyCompanyFilters()">
+                                    <option value="ALL">All Industries</option>
+                                    <option value="Software">Software</option>
+                                    <option value="FinTech">FinTech</option>
+                                    <option value="Clean Technology">Clean Technology</option>
+                                    <option value="Cybersecurity">Cybersecurity</option>
+                                    <option value="Cloud Infrastructure">Cloud Infrastructure</option>
+                                    <option value="HealthTech">HealthTech</option>
+                                </select>
+                            </div>
+
+                            <button id="btn-add-company" class="btn btn-primary btn-sm" onclick="openAddCompanyModal()">
+                                + Add Company
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="companies-card-grid" class="companies-grid">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- ===================================================== -->
+                <!-- VIEW 03: REVIEWS                                      -->
+                <!-- ===================================================== -->
+                <div id="view-reviews" class="view-panel">
+                    <!-- Sub-tabs for Reviews -->
+                    <div class="sub-tab-bar">
+                        <button class="sub-tab-btn active" data-subtab="review-write">WRITE REVIEW</button>
+                        <button class="sub-tab-btn" data-subtab="review-published">PUBLISHED FEEDBACK (<span id="pub-rev-count">3</span>)</button>
+                        <button class="sub-tab-btn" data-subtab="review-moderation">VERIFICATION QUEUE (<span id="queue-rev-count">0</span>)</button>
+                    </div>
+
+                    <!-- Subtab 1: Write Review -->
+                    <div id="subtab-review-write" class="subtab-content active">
+                        <div class="review-form-container glass-panel">
+                            <h3>Submit Verified Peer Feedback</h3>
+                            <p class="form-desc">Share detailed experience regarding engineering standards, mentorship, compensation, and skill alignment.</p>
+
+                            <form id="form-submit-review" onsubmit="handleReviewSubmit(event)">
+                                <div class="form-row">
+                                    <div class="form-group flex-1">
+                                        <label>TARGET COMPANY *</label>
+                                        <select id="review-comp-select" required>
+                                            <!-- Dynamically populated -->
+                                        </select>
+                                    </div>
+                                    <div class="form-group flex-1">
+                                        <label>REVIEWER ALIAS / ID</label>
+                                        <input type="text" id="review-author" readonly>
+                                    </div>
+                                </div>
+
+                                <!-- Star Ratings Breakdown -->
+                                <div class="ratings-inputs-grid">
+                                    <div class="rating-input-box">
+                                        <label>OVERALL RATING: <span id="val-rating-overall" class="text-amber">5.0 ★</span></label>
+                                        <input type="range" id="input-rating-overall" min="1" max="5" step="0.5" value="5" oninput="updateRatingDisplay('overall', this.value)">
+                                    </div>
+                                    <div class="rating-input-box">
+                                        <label>WORK-LIFE BALANCE: <span id="val-rating-worklife" class="text-cyan">4.0 ★</span></label>
+                                        <input type="range" id="input-rating-worklife" min="1" max="5" step="0.5" value="4" oninput="updateRatingDisplay('worklife', this.value)">
+                                    </div>
+                                    <div class="rating-input-box">
+                                        <label>ENGINEERING CULTURE: <span id="val-rating-culture" class="text-emerald">4.5 ★</span></label>
+                                        <input type="range" id="input-rating-culture" min="1" max="5" step="0.5" value="4.5" oninput="updateRatingDisplay('culture', this.value)">
+                                    </div>
+                                    <div class="rating-input-box">
+                                        <label>CAREER GROWTH: <span id="val-rating-growth" class="text-purple">5.0 ★</span></label>
+                                        <input type="range" id="input-rating-growth" min="1" max="5" step="0.5" value="5" oninput="updateRatingDisplay('growth', this.value)">
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>HEADLINE / SUMMARY *</label>
+                                    <input type="text" id="review-title" required placeholder="e.g. Exceptional Mentorship & High Transparency Stack" value="Exceptional Mentorship & High Transparency Stack">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>DETAILED FEEDBACK *</label>
+                                    <textarea id="review-comment" rows="4" required placeholder="Provide transparent feedback regarding skills practiced, interviews, and team dynamics...">Clear role requirements with solid C++ and distributed systems architecture. Management is transparent with compensation bands and tech milestones.</textarea>
+                                </div>
+
+                                <div class="form-actions right">
+                                    <button type="submit" class="btn btn-primary btn-glow">ENQUEUE FOR VERIFICATION →</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Subtab 2: Published Reviews -->
+                    <div id="subtab-review-published" class="subtab-content">
+                        <div id="published-reviews-list" class="reviews-list-grid">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Subtab 3: Verification Queue (PL Circular Queue) -->
+                    <div id="subtab-review-moderation" class="subtab-content">
+                        <div class="glass-panel">
+                            <div class="panel-header">
+                                <div>
+                                    <h3>FIFO Review Verification Queue (PL Custom Circular Buffer)</h3>
+                                    <p class="subtext">Capacity: 30 items | Bounded FIFO Queue with Front &amp; Rear Pointers</p>
+                                </div>
+                                <div class="queue-indicators">
+                                    <span class="badge-cyan">Queue Count: <strong id="queue-size-badge">0</strong></span>
+                                </div>
+                            </div>
+
+                            <div id="queue-empty-alert" class="empty-state-box">
+                                <h4>Verification Queue is Empty</h4>
+                                <p>All reviews are currently moderated and published. Submit a review from Tab 1 to enqueue.</p>
+                            </div>
+
+                            <div id="queue-items-container" class="queue-cards-list">
+                                <!-- Populated dynamically -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===================================================== -->
+                <!-- VIEW 04: SKILL TRANSPARENCY                           -->
+                <!-- ===================================================== -->
+                <div id="view-skills" class="view-panel">
+                    <div class="skills-layout-grid">
+                        <!-- Left: Student Candidate Competency Matrix -->
+                        <div class="glass-panel">
+                            <div class="panel-header">
+                                <h3>Candidate Skill Matrix &amp; Weights</h3>
+                                <span class="badge-emerald">Weighted Matcher</span>
+                            </div>
+                            <p class="subtext">Benchmark calculation using candidate proficiency (1-5) and role required weights.</p>
+                            <div id="candidate-skills-list" class="skills-list">
+                                <!-- Populated by JS -->
+                            </div>
+                            <div class="benchmark-summary-box">
+                                <div class="score-display">
+                                    <span class="label">Calculated Match Index:</span>
+                                    <span id="calculated-match-val" class="score">78.0%</span>
+                                </div>
+                                <div class="progress-bar-bg">
+                                    <div id="calculated-match-bar" class="progress-fill emerald" style="width: 78%;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right: Company Role Skill Clarity Comparison -->
+                        <div class="glass-panel">
+                            <div class="panel-header">
+                                <h3>Company Transparency Benchmarks</h3>
+                                <span class="badge-cyan">Role Clarity Index</span>
+                            </div>
+                            <div class="company-skill-chart" id="company-transparency-bars">
+                                <!-- Injected via JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===================================================== -->
+                <!-- VIEW 05: SALARY INSIGHTS                              -->
+                <!-- ===================================================== -->
+                <div id="view-salary" class="view-panel">
+                    <div class="salary-dashboard-grid">
+                        <div class="glass-panel col-span-2">
+                            <div class="panel-header">
+                                <h3>Annual Compensation Analysis (LPA)</h3>
+                                <span class="badge-amber">COA 64-Bit Linkage</span>
+                            </div>
+                            <div id="salary-bars-container" class="salary-bars-wrapper">
+                                <!-- Rendered via JS -->
+                            </div>
+                        </div>
+
+                        <div class="glass-panel">
+                            <div class="panel-header">
+                                <h3>CTC Annualizer Calculator</h3>
+                                <span class="badge-purple">Win64 ABI Simulator</span>
+                            </div>
+                            <div class="form-group">
+                                <label>MONTHLY BASE (₹):</label>
+                                <input type="number" id="calc-monthly-base" value="85000" step="5000" oninput="runSalaryCalc()">
+                            </div>
+                            <div class="form-group">
+                                <label>MONTHLY BONUS / ALLOWANCE (₹):</label>
+                                <input type="number" id="calc-monthly-bonus" value="15000" step="1000" oninput="runSalaryCalc()">
+                            </div>
+                            <div class="calc-result-box">
+                                <div class="calc-row">
+                                    <span>Total Monthly:</span>
+                                    <strong id="calc-res-monthly">₹ 1,00,000</strong>
+                                </div>
+                                <div class="calc-row">
+                                    <span>Annual CTC (INR):</span>
+                                    <strong id="calc-res-annual" class="text-cyan">₹ 12,00,000</strong>
+                                </div>
+                                <div class="calc-row">
+                                    <span>Normalized LPA:</span>
+                                    <strong id="calc-res-lpa" class="text-emerald">12.0 LPA</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===================================================== -->
+                <!-- VIEW 06: COMPARE COMPANIES                            -->
+                <!-- ===================================================== -->
+                <div id="view-compare" class="view-panel">
+                    <div class="glass-panel">
+                        <div class="panel-header">
+                            <div>
+                                <h3>Side-by-Side Multi-Company Comparator</h3>
+                                <p class="subtext">Select companies to analyze head-to-head across all four key dimensions.</p>
+                            </div>
+                            <div class="compare-selector-bar">
+                                <label>Add Company to Compare:</label>
+                                <select id="compare-add-select" onchange="handleAddCompareCompany(this.value)">
+                                    <option value="">+ Select Company...</option>
+                                    <!-- Injected by JS -->
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Active Compare Chips -->
+                        <div id="compare-chips-row" class="compare-chips-container">
+                            <!-- Injected by JS -->
+                        </div>
+
+                        <!-- Comparison Matrix Table -->
+                        <div class="table-responsive mt-3">
+                            <table class="eco-table compare-table">
+                                <thead id="compare-table-head">
+                                    <!-- Dynamic headers -->
+                                </thead>
+                                <tbody id="compare-table-body">
+                                    <!-- Dynamic rows -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===================================================== -->
+                <!-- VIEW 07: ANALYTICS & 3D (CANVAS 3D PRISM & CLIPPING)   -->
+                <!-- ===================================================== -->
+                <div id="view-analytics" class="view-panel">
+                    <!-- Subtab Header -->
+                    <div class="analytics-subnav-bar">
+                        <div class="sub-tab-bar">
+                            <button class="sub-tab-btn active" data-analtab="view-bar-compare">BAR COMPARISON (VIEW A)</button>
+                            <button class="sub-tab-btn" data-analtab="view-prism-3d">3D METRIC PRISM (VIEW B)</button>
+                            <button class="sub-tab-btn" data-analtab="view-dda-bresenham">DDA &amp; BRESENHAM GRAPHS</button>
+                        </div>
+
+                        <!-- Global Clipping Toggle for Graphs -->
+                        <div id="analytics-clipping-toggle-wrap" class="hidden">
+                            <button id="btn-toggle-tight-clipping" class="btn btn-outline-cyan btn-sm" onclick="toggleTightClipping()">
+                                FOCUS CLIPPING OFF
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- ANALYTICS SUBTAB 1: BAR COMPARISON (VIEW A) -->
+                    <div id="analtab-bar-compare" class="analytics-subtab active">
+                        <div class="analytics-split-layout">
+                            <div class="glass-panel flex-3">
+                                <div class="toolbar-bar compact">
+                                    <div class="btn-group">
+                                        <button class="btn btn-sm btn-sub active" data-metric="0" onclick="setCompareMetric(0)">Ratings (★)</button>
+                                        <button class="btn btn-sm btn-sub" data-metric="1" onclick="setCompareMetric(1)">Salary (LPA)</button>
+                                        <button class="btn btn-sm btn-sub" data-metric="2" onclick="setCompareMetric(2)">Skill Index (%)</button>
+                                        <button class="btn btn-sm btn-sub" data-metric="3" onclick="setCompareMetric(3)">Open Roles</button>
+                                    </div>
+                                    <div class="btn-group">
+                                        <button id="btn-chart-2d" class="btn btn-sm btn-sub active" onclick="setChartDimension(false)">2D Bars</button>
+                                        <button id="btn-chart-3d" class="btn btn-sm btn-sub" onclick="setChartDimension(true)">3D Bars (Turntable)</button>
+                                    </div>
+                                </div>
+
+                                <div class="chart-canvas-container">
+                                    <canvas id="canvas-bar-analytics" width="760" height="420"></canvas>
+                                </div>
+                            </div>
+
+                            <!-- Inspected Company Side Panel -->
+                            <div class="glass-panel flex-1" id="inspect-company-panel">
+                                <h3>Company Profile</h3>
+                                <div id="inspect-content" class="inspect-body">
+                                    <!-- Populated via JS -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ANALYTICS SUBTAB 2: 3D METRIC PRISM (VIEW B) -->
+                    <div id="analtab-prism-3d" class="analytics-subtab">
+                        <div class="glass-panel">
+                            <div class="prism-controls-bar">
+                                <div class="btn-group">
+                                    <button class="btn btn-sm btn-sub active" data-pmetric="0" onclick="setPrismMetric(0)">Rating Prism</button>
+                                    <button class="btn btn-sm btn-sub" data-pmetric="1" onclick="setPrismMetric(1)">Salary Prism</button>
+                                    <button class="btn btn-sm btn-sub" data-pmetric="2" onclick="setPrismMetric(2)">Transparency</button>
+                                    <button class="btn btn-sm btn-sub" data-pmetric="3" onclick="setPrismMetric(3)">Openings</button>
+                                </div>
+
+                                <div class="turntable-keys-hud">
+                                    <span class="hud-tag">CONTROLS:</span>
+                                    <button class="btn-key" onclick="prismRotate('x')">X (Pitch)</button>
+                                    <button class="btn-key" onclick="prismRotate('y')">Y (Yaw)</button>
+                                    <button class="btn-key" onclick="prismRotate('z')">Z (Roll)</button>
+                                    <button class="btn-key" onclick="prismZoom(1.1)">+ Zoom</button>
+                                    <button class="btn-key" onclick="prismZoom(0.9)">- Zoom</button>
+                                    <button id="btn-prism-spin" class="btn-key active" onclick="prismToggleSpin()">Auto-Spin</button>
+                                    <button class="btn-key" onclick="prismReset()">0 Reset</button>
+                                </div>
+                            </div>
+
+                            <div class="prism-canvas-wrapper">
+                                <canvas id="canvas-prism-3d" width="920" height="480"></canvas>
+                                <div class="prism-overlay-legend" id="prism-legend">
+                                    <!-- Dynamic label -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ANALYTICS SUBTAB 3: DDA & BRESENHAM WITH COHEN-SUTHERLAND CLIPPING -->
+                    <div id="analtab-dda-bresenham" class="analytics-subtab">
+                        <div class="rasterizer-graphs-grid">
+                            
+                            <!-- LEFT GRAPH: DDA RATINGS RASTERIZER -->
+                            <div class="glass-panel graph-panel">
+                                <div class="graph-card-header">
+                                    <div>
+                                        <h4 class="text-cyan">DDA LINE ALGORITHM: COMPANY RATINGS</h4>
+                                        <p class="subtext">Cohen-Sutherland 4-bit Outcode Line Clipping with User-Decided Range &amp; Sorting</p>
+                                    </div>
+                                </div>
+
+                                <!-- Left Toolbar (Decide Range + Sorting) -->
+                                <div class="graph-toolbar">
+                                    <button id="btn-left-preset" class="btn btn-xs btn-sub" onclick="cycleClippingPreset()">RANGE: FULL</button>
+                                    <button id="btn-left-min" class="btn btn-xs btn-sub" onclick="setActiveAdjust(0)">MIN 0.0★</button>
+                                    <button id="btn-left-max" class="btn btn-xs btn-sub active" onclick="setActiveAdjust(1)">MAX 3.5★</button>
+                                    <div class="btn-step-group">
+                                        <button class="btn btn-xs btn-sub step" onclick="adjustRatingBoundary(-0.5)">-</button>
+                                        <button class="btn btn-xs btn-sub step" onclick="adjustRatingBoundary(0.5)">+</button>
+                                    </div>
+                                    <button id="btn-left-sort" class="btn btn-xs btn-sub sort" onclick="cycleGraphSort()">SORT: ID</button>
+                                </div>
+
+                                <div class="canvas-plot-area">
+                                    <canvas id="canvas-dda-graph" width="520" height="340"></canvas>
+                                </div>
+
+                                <div class="graph-card-footer">
+                                    <span class="badge-cyan">DDA RASTERIZER (CYAN)</span>
+                                    <span id="footer-left-stats" class="footer-desc">Mean: 4.38★ | Outcodes: TOP=1000, BOT=0100</span>
+                                </div>
+                            </div>
+
+                            <!-- RIGHT GRAPH: BRESENHAM SKILL TRANSPARENCY RASTERIZER -->
+                            <div class="glass-panel graph-panel">
+                                <div class="graph-card-header">
+                                    <div>
+                                        <h4 class="text-emerald">BRESENHAM ALGORITHM: SKILL TRANSPARENCY</h4>
+                                        <p class="subtext">Integer decision parameter error accumulation with zero-division across octants</p>
+                                    </div>
+                                </div>
+
+                                <!-- Right Toolbar (Decide Range + Sorting) -->
+                                <div class="graph-toolbar">
+                                    <button id="btn-right-preset" class="btn btn-xs btn-sub" onclick="cycleClippingPreset()">RANGE: FULL</button>
+                                    <button id="btn-right-min" class="btn btn-xs btn-sub" onclick="setActiveAdjust(0)">MIN 0%</button>
+                                    <button id="btn-right-max" class="btn btn-xs btn-sub active" onclick="setActiveAdjust(1)">MAX 75%</button>
+                                    <div class="btn-step-group">
+                                        <button class="btn btn-xs btn-sub step" onclick="adjustSkillBoundary(-10)">-</button>
+                                        <button class="btn btn-xs btn-sub step" onclick="adjustSkillBoundary(10)">+</button>
+                                    </div>
+                                    <button id="btn-right-sort" class="btn btn-xs btn-sub sort" onclick="cycleGraphSort()">SORT: ID</button>
+                                </div>
+
+                                <div class="canvas-plot-area">
+                                    <canvas id="canvas-bresenham-graph" width="520" height="340"></canvas>
+                                </div>
+
+                                <div class="graph-card-footer">
+                                    <span class="badge-emerald">BRESENHAM RASTERIZER (EMERALD)</span>
+                                    <span id="footer-right-stats" class="footer-desc">Mean: 90.8% | Zero Float Error Accumulation</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ===================================================== -->
+                <!-- VIEW 08: ALGORITHM LAB (COA 64-BIT HARDWARE ENGINE)   -->
+                <!-- ===================================================== -->
+                <div id="view-algorithm-lab" class="view-panel">
+                    <div class="coa-layout-grid">
+                        
+                        <!-- Top: CPU 64-Bit Registers HUD -->
+                        <div class="glass-panel col-span-2">
+                            <div class="panel-header">
+                                <div>
+                                    <h3 class="text-amber">64-BIT CPU REGISTERS (Win64 ABI / COA.asm Simulation)</h3>
+                                    <p class="subtext">Direct Win64 registers, accumulator status, ALU condition flags &amp; memory pointers</p>
+                                </div>
+                                <span class="badge-cyan">Architecture: x86-64</span>
+                            </div>
+
+                            <div class="registers-hud-grid">
+                                <div class="reg-card">
+                                    <span class="reg-name">RAX (Accumulator)</span>
+                                    <span id="reg-rax-hex" class="reg-hex">0x00000000</span>
+                                    <span id="reg-rax-dec" class="reg-dec">0</span>
+                                </div>
+                                <div class="reg-card">
+                                    <span class="reg-name">RBX (Base / Divisor)</span>
+                                    <span id="reg-rbx-hex" class="reg-hex">0x00000000</span>
+                                    <span id="reg-rbx-dec" class="reg-dec">0</span>
+                                </div>
+                                <div class="reg-card">
+                                    <span class="reg-name">RCX (Loop Counter)</span>
+                                    <span id="reg-rcx-hex" class="reg-hex">0x00000000</span>
+                                    <span id="reg-rcx-dec" class="reg-dec">0</span>
+                                </div>
+                                <div class="reg-card">
+                                    <span class="reg-name">RDX (Data / Remainder)</span>
+                                    <span id="reg-rdx-hex" class="reg-hex">0x00000000</span>
+                                    <span id="reg-rdx-dec" class="reg-dec">0</span>
+                                </div>
+                            </div>
+
+                            <!-- RFLAGS Status Flags -->
+                            <div class="flags-hud-bar">
+                                <span class="flags-label">RFLAGS STATUS:</span>
+                                <span id="flag-cf" class="flag-chip">CF = 0</span>
+                                <span id="flag-zf" class="flag-chip">ZF = 0</span>
+                                <span id="flag-sf" class="flag-chip">SF = 0</span>
+                                <span id="flag-of" class="flag-chip">OF = 0</span>
+                                <span id="flags-summary" class="flags-summary text-emerald">[All Status Clear]</span>
+                            </div>
+                        </div>
+
+                        <!-- Left: Interactive Instruction Execution -->
+                        <div class="glass-panel">
+                            <div class="panel-header">
+                                <h3>Assembly Operations</h3>
+                                <span class="badge-emerald">ALU Dispatcher</span>
+                            </div>
+
+                            <!-- Operands Input -->
+                            <div class="operands-row">
+                                <div class="form-group flex-1">
+                                    <label>OPERAND A (RAX):</label>
+                                    <input type="number" id="coa-op-a" value="85000">
+                                </div>
+                                <div class="form-group flex-1">
+                                    <label>OPERAND B (RBX / RSI):</label>
+                                    <input type="number" id="coa-op-b" value="72000">
+                                </div>
+                            </div>
+
+                            <!-- Instruction Execution Buttons -->
+                            <div class="asm-buttons-grid">
+                                <button class="btn btn-outline-cyan btn-sm" onclick="executeAsmOp('add64')">64-BIT ADD</button>
+                                <button class="btn btn-outline-cyan btn-sm" onclick="executeAsmOp('compare64')">COMPARE (CMP)</button>
+                                <button class="btn btn-outline-cyan btn-sm" onclick="executeAsmOp('calc_avg64')">DIVIDE (AVG)</button>
+                                <button class="btn btn-outline-cyan btn-sm" onclick="executeAsmOp('count_ge64')">COUNT &gt;= B</button>
+                                <button class="btn btn-outline-cyan btn-sm" onclick="executeAsmOp('mult_add64')">MULT_ADD (LOOP)</button>
+                                <button class="btn btn-outline-cyan btn-sm" onclick="executeAsmOp('asm_strlen')">ASM STRLEN</button>
+                            </div>
+
+                            <!-- Output Result Card -->
+                            <div class="coa-result-card">
+                                <span class="res-tag">ALU EXECUTION RESULT:</span>
+                                <div id="coa-result-text" class="res-body">add64: 85000 + 72000 = 157000 (Committed to RAX)</div>
+                            </div>
+                        </div>
+
+                        <!-- Right: Cycle-by-Cycle Execution Trace -->
+                        <div class="glass-panel">
+                            <div class="panel-header">
+                                <h3>Instruction Cycle &amp; Trace</h3>
+                                <button class="btn btn-xs btn-ghost" onclick="clearCoaTrace()">Clear Trace</button>
+                            </div>
+                            <div id="coa-trace-terminal" class="code-terminal">
+                                <!-- Injected by JS -->
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- ===================================================== -->
+                <!-- VIEW 09: PROFILE & HISTORY                            -->
+                <!-- ===================================================== -->
+                <div id="view-profile" class="view-panel">
+                    <div class="profile-layout-grid">
+                        <div class="glass-panel">
+                            <div class="panel-header">
+                                <h3>Active User Profile</h3>
+                                <span id="profile-role-chip" class="badge-cyan">Student</span>
+                            </div>
+                            <div class="profile-details-list">
+                                <div class="profile-row">
+                                    <span class="p-key">Username:</span>
+                                    <strong id="profile-uname" class="p-val">student</strong>
+                                </div>
+                                <div class="profile-row">
+                                    <span class="p-key">Permissions:</span>
+                                    <strong id="profile-perm" class="p-val">Review Submission &amp; 3D Analytics Access</strong>
+                                </div>
+                                <div class="profile-row">
+                                    <span class="p-key">Polymorphic Base:</span>
+                                    <strong class="p-val text-emerald">class StudentUser : public User</strong>
+                                </div>
+                                <div class="profile-row">
+                                    <span class="p-key">Session Started:</span>
+                                    <strong id="profile-session-time" class="p-val">Just now</strong>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="glass-panel col-span-2">
+                            <div class="panel-header">
+                                <h3>Complete Activity Audit History</h3>
+                                <span class="badge-purple">Chronological Log</span>
+                            </div>
+                            <div id="profile-audit-table" class="activity-feed">
+                                <!-- Injected via JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </section>
+
+    <!-- ================================================================= -->
+    <!-- MODAL 1: ADD COMPANY (FOR EMPLOYER / ADMIN)                       -->
+    <!-- ================================================================= -->
+    <div id="modal-add-company" class="modal-backdrop">
+        <div class="modal-card glass-panel">
+            <div class="modal-header">
+                <h3>Add New Partner Organization</h3>
+                <button class="btn-close" onclick="closeAddCompanyModal()">✕</button>
+            </div>
+            <form id="form-add-company" onsubmit="handleAddCompanySubmit(event)">
+                <div class="form-row">
+                    <div class="form-group flex-1">
+                        <label>COMPANY NAME *</label>
+                        <input type="text" id="add-comp-name" required placeholder="e.g. ApexAI Labs">
+                    </div>
+                    <div class="form-group flex-1">
+                        <label>INDUSTRY *</label>
+                        <input type="text" id="add-comp-industry" required placeholder="e.g. Artificial Intelligence">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group flex-1">
+                        <label>HEADQUARTERS LOCATION *</label>
+                        <input type="text" id="add-comp-loc" required placeholder="e.g. Bengaluru / Remote">
+                    </div>
+                    <div class="form-group flex-1">
+                        <label>OPEN TECHNICAL ROLES</label>
+                        <input type="number" id="add-comp-jobs" min="1" max="500" value="15" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group flex-1">
+                        <label>ANNUAL COMPENSATION (INR) *</label>
+                        <input type="number" id="add-comp-salary" min="100000" step="50000" value="950000" required>
+                    </div>
+                    <div class="form-group flex-1">
+                        <label>INITIAL RATING (1-5★)</label>
+                        <input type="number" id="add-comp-rating" min="1" max="5" step="0.1" value="4.5" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>CORE SKILLS &amp; TECHNOLOGIES (Comma-Separated) *</label>
+                    <input type="text" id="add-comp-skills" required placeholder="e.g. Python, PyTorch, C++, Distributed Systems">
+                </div>
+                <div class="form-group">
+                    <label>ROLE TRANSPARENCY INDEX (0-100%) *</label>
+                    <input type="number" id="add-comp-transparency" min="10" max="100" value="92" required>
+                </div>
+                <div class="form-group">
+                    <label>COMPANY OVERVIEW / WORK CULTURE DESCRIPTION</label>
+                    <textarea id="add-comp-desc" rows="3" placeholder="Describe engineering culture, transparency standards, and career expectations..."></textarea>
+                </div>
+                <div class="form-actions right">
+                    <button type="button" class="btn btn-ghost" onclick="closeAddCompanyModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary btn-glow">Insert Into Database →</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- MODAL 2: REGISTER ACCOUNT                                         -->
+    <!-- ================================================================= -->
+    <div id="modal-register" class="modal-backdrop">
+        <div class="modal-card glass-panel">
+            <div class="modal-header">
+                <h3>Create New ECOSCOPE Account</h3>
+                <button class="btn-close" onclick="closeRegisterModal()">✕</button>
+            </div>
+            <form id="form-register" onsubmit="handleRegisterSubmit(event)">
+                <div class="form-group">
+                    <label>ACCOUNT TYPE</label>
+                    <div class="role-tab-group mb-2">
+                        <button type="button" class="role-tab active" data-regrole="STUDENT">STUDENT / JOBSEEKER</button>
+                        <button type="button" class="role-tab" data-regrole="EMPLOYER">EMPLOYER</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>USERNAME</label>
+                    <input type="text" id="reg-username" required placeholder="Choose a username">
+                </div>
+                <div class="form-group">
+                    <label>PASSWORD</label>
+                    <input type="password" id="reg-password" required placeholder="Choose a password">
+                </div>
+                <div class="form-actions right">
+                    <button type="button" class="btn btn-ghost" onclick="closeRegisterModal()">Cancel</button>
+                    <button type="submit" class="btn btn-primary btn-glow">Create Account →</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Logic Script -->
+    <script src="app.js"></script>
+</body>
+</html>
